@@ -1,3 +1,5 @@
 module.exports.profile = (req,res) =>{
-    return res.render('users.ejs')
+    return res.render('users_profile.ejs',{
+        title : 'Mangekyo Saringan'
+    })
 }
