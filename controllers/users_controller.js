@@ -1,9 +1,16 @@
 const User = require('../models/user');
 
-module.exports.profile = (req,res) =>{
-    return res.render('users_profile.ejs',{
-        title : 'Mangekyo Saringan'
-    })
+module.exports.profile =async (req,res) =>{
+   if(req.cookies.user_id){
+        let user = await User.findOne({_id : req.cookies.user_id}).catch(err=>console.log(err));
+        if(user){
+            return res.render('users_profile',{
+                title : "Users Profile",
+                user : user
+            })
+        }}
+        return res.redirect('/users/sign-in');
+   
 }
 
 
@@ -27,7 +34,6 @@ module.exports.create =async (req,res)=>{
         return res.redirect('back')
     }  
    var user=await User.findOne({email : req.body.email}).catch(err=>{console.log(err)});
-   console.log('user',user)
     // ,(err,user)=>{
     //     if(err){console.log('error in finding user in signing up'); return}
 
@@ -45,6 +51,24 @@ module.exports.create =async (req,res)=>{
 }
 
 //sign in and create a session for the user
-module.exports.createSession = (req,res) => {
-    //todo later
+module.exports.createSession = async (req,res) => {
+    //find the user
+    try{
+        let user =await User.findOne({email : req.body.email}).catch(err=>console.log(err));
+        
+    //handle user found
+        if(user){
+    //handle password that doesn't match
+            if(user.password != req.body.password){
+                return res.redirect('back');
+            }
+    //handle session creation
+            res.cookie('user_id',user.id);
+            return res.redirect('/users/profile');
+        }else{
+            res.redirect('back');
+        }
+    }catch(err){
+        console.error(err);
+    }
 }
