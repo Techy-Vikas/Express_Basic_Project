@@ -2,6 +2,11 @@
     <head>
         <title><%= title %></title>
         <link rel="stylesheet" href="/css/layout.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="icon" href="/images/favicon.ico">
+
+        <%- style %>
     </head>
     <body>
         <%- include('_header'); -%>
@@ -9,5 +14,7 @@
         <%- body -%>
 
         <%- include('_footer'); -%>
+
+        <%- script %>
     </body>
 </html>

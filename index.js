@@ -18,15 +18,15 @@ const sassMiddleware = require('node-sass-middleware');
 
 //use sass middleware
 app.use(sassMiddleware({
-    src : '/assets/scss',
-    dest : '/assets/css',
+    src : './assets/scss',
+    dest : './assets/css',
     debug : true,
-    outputStyle : 'expanded',
+    outputStyle : 'extended',
     prefix : '/css'
 }));
 
 //read through form
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended : false}));
 
 //cookie-parser
 app.use(cookieParser());
@@ -35,6 +35,8 @@ app.use(express.static('./assets'))
 
 //we need to put it before routes
 app.use(expressLayouts);
+app.set("layout extractScripts", true);
+app.set("layout extractStyles", true);
 
 //setup the view engine
 app.set('view engine','ejs')
