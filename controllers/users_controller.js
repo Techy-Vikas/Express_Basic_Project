@@ -33,7 +33,7 @@ module.exports.create =async (req,res)=>{
         return res.redirect('back')
     }  
    var user=await User.findOne({email : req.body.email}).catch(err=>{console.log(err)});
-   console.log('user',user)
+//    console.log('user',user)
     // ,(err,user)=>{
     //     if(err){console.log('error in finding user in signing up'); return}
 
