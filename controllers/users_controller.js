@@ -1,11 +1,25 @@
 const User = require('../models/user');
 
-module.exports.profile = (req,res) =>{
-    return res.render('users_profile.ejs',{
-        title : 'Mangekyo Saringan'
-    })
+module.exports.profile = async (req,res) =>{
+    User.findById(req.params.id).then(user=>{
+        return res.render('users_profile.ejs',{
+            title : 'User Profile',
+            profile_user: user
+        })
+    }).catch(err=>{console.log(err)});
+   
 }
 
+module.exports.update = (req,res) => {
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body).then(user=>{
+            return res.redirect('/');
+        }).catch(err=>console.log(err))
+    }
+    else{
+        return res.status(401).send('Unauthorized');
+    }
+}
 
 //render the sign up page
 module.exports.signUp = function(req,res){

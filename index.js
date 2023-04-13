@@ -16,6 +16,9 @@ const MongoStore = require('connect-mongo')(session);
 //used for sass css
 const sassMiddleware = require('node-sass-middleware');
 
+//used for flash messages
+const flash = require('connect-flash');
+
 //use sass middleware
 app.use(sassMiddleware({
     src : './assets/scss',
