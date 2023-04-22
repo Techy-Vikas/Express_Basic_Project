@@ -19,6 +19,9 @@ const sassMiddleware = require('node-sass-middleware');
 //used for flash messages
 const flash = require('connect-flash');
 
+//adding middleware for flash message
+const customMware = require('./config/middleware')
+
 //use sass middleware
 app.use(sassMiddleware({
     src : './assets/scss',
@@ -66,6 +69,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser )
+
+app.use(flash());
+app.use(customMware.setFlash)
 
 //use express router
 app.use('/',require('./routes/index'))

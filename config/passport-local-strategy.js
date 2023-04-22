@@ -7,11 +7,14 @@ const User = require('../models/user')
 
 //authentication using passport 
 passport.use(new LocalStrategy({
-    usernameField: 'email'
+    usernameField: 'email',
+    passReqToCallback : true,
 },
-    async (email,password,done)=>{
+    async (req,email,password,done)=>{
         //find a user and establish the identity
-        var user = await User.findOne({email : email}).catch(err=>console.log(err));
+        var user = await User.findOne({email : email}).catch((err)=>{
+            console.log('Invalid / UserName Password!')
+        });
 
         if(!user || user.password != password ){
             console.log('Invalid Username/Password');
@@ -19,11 +22,11 @@ passport.use(new LocalStrategy({
         }
         return done(null,user);//user means it is authorized
     }
-));
+))
 
 //serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser((user,done)=>{
-    done(null,user.id);
+    done(null,user.id);0
 })
 
 

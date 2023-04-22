@@ -67,6 +67,7 @@ module.exports.create =async (req,res)=>{
 //sign in and create a session for the user
 module.exports.createSession = (req,res) => {
     //todo later
+    req.flash('success','Logged in Successfully!');
     return res.redirect('/')
 }
 
@@ -74,6 +75,7 @@ module.exports.destroySession = (req,res) => {
     //this function is of passport
     req.logout(function(err) {
         if (err) { return next(err); }
+    req.flash('success','You have logged out!');
         res.redirect('/');
       });
     

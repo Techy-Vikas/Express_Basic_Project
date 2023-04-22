@@ -1,21 +1,50 @@
 <html>
-    <head>
-        <title><%= title %></title>
-        <link rel="stylesheet" href="/css/layout.css">
-        <link rel="stylesheet" href="/css/header.css">
-        <link rel="stylesheet" href="/css/footer.css">
-        <link rel="icon" href="/images/favicon.ico">
 
-        <%- style %>
-    </head>
-    <body>
-        <%- include('_header'); -%>
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <!-- <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="icon" href="/images/favicon.ico">
+
+    <%- style %>
+</head>
+
+<body>
+    <%- include('_header'); -%>
+        <!-- <% if(flash.success && flash.success.length > 0) { %>
+            <h5>
+                <%= flash.success %>
+            </h5>
+         <% } %>    -->
 
         <main id="layout-main">
-        <%- body -%>
+            <%- body -%>
         </main>
         <%- include('_footer'); -%>
 
-        <%- script %>
-    </body>
+            <%- script %>
+
+                <script>
+            <% if (flash.success && flash.success.length > 0) { %>
+                       alert('<%=flash.success%>')
+                       <% } %>
+                <% if (flash.error && flash.error.length > 0) { %>
+                //         new Noty({
+                //             theme: 'relax',
+                //             text: <%=flash.error %>,
+                //             type: 'success',
+                //             layout: 'topRight',
+                //             timeout: 1500
+                //         }).show()
+                alert('<%=flash.error%>')
+                        <% } %> 
+                </script>
+</body>
+
 </html>
